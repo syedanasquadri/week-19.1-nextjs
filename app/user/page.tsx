@@ -1,24 +1,12 @@
-'use client';
 import axios from "axios";
-import { useEffect, useState } from "react";
 
-export default function User() {
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState({});
-    useEffect(() => {
-        axios.get("https://week-13-offline.kirattechnologies.workers.dev/api/v1/user/details")
-        .then(response => {
-            setData(response.data);
-            setLoading(false);
-        })
-    },[]);
+export default async function User() {
+    const response = await axios.get("https://week-13-offline.kirattechnologies.workers.dev/api/v1/user/details");
 
-    if(loading){
-        return <div>
-            loading...
-        </div>
-    };
-    
+    await new Promise(r => setTimeout(r,5000))
+
+    const data = response.data;
+
     return <div>
         user page
         {data.name}
